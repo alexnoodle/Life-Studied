@@ -12,7 +12,7 @@ public class LoadSave {
 				openFile = new Scanner(new File(a));
 				int dim = openFile.nextInt();
 				int[][] blank = new int[dim][dim];
-				while(openFile.hasNextLine()){
+				while(openFile.hasNextInt()){
 					int x;
 					int y;
 					int next;
