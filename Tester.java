@@ -16,15 +16,27 @@ final public class Tester {
 	private static int dim;
 
 	static ArrayList<int[][]> log = new ArrayList<int[][]>();
-	
-	public Tester(ArrayList<int[][]> a){
-		log = a;
-		dim = log.get(0).length;
-		this.go();
-		//this.openMap();
+
+	public Tester() {
+		// this.openMap();
 	}
 
-	private void go() {
+	public static void main(String[] args) throws FileNotFoundException,
+			UnsupportedEncodingException {
+		Simulator a = new Simulator();
+		log = a.run();
+		dim = log.get(0).length;
+		new Tester().go();
+	}
+
+	public Tester(ArrayList<int[][]> a) throws FileNotFoundException,
+			UnsupportedEncodingException {
+		log = a;
+		dim = log.get(0).length;
+		new Tester().go();
+	}
+
+	public void go() {
 		frame = new JFrame("Test");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -48,7 +60,7 @@ final public class Tester {
 			}
 			for (int k = 0; k < dim; k++) {
 				for (int l = 0; l < dim; l++) {
-					//System.out.println(log.size());
+					// System.out.println(log.size());
 					if (oneX < log.size()) {
 						if (log.get(oneX)[k][l] == 1) {
 							g.fillOval(k * 10, l * 10, 10, 10);
@@ -59,31 +71,29 @@ final public class Tester {
 			}
 		}
 	}
-	
-	public void openMap(){
-		try{
+
+	public void openMap() {
+		try {
 			Scanner openFile = null;
 			openFile = new Scanner(new File("SavedRun.txt"));
 			dim = openFile.nextInt();
 			int[][] blank = new int[dim][dim];
-			while(openFile.hasNextLine()){
+			while (openFile.hasNextLine()) {
 				int x;
 				int y;
 				int next;
 				next = openFile.nextInt();
-				if(!(next == -1)){
+				if (!(next == -1)) {
 					x = next;
 					y = openFile.nextInt();
 					blank[x][y] = 1;
-				}
-				else{
+				} else {
 					log.add(blank);
 					blank = new int[dim][dim];
 				}
 			}
 			openFile.close();
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			System.out.println("Opening didn't work");
 		}
 		this.go();
@@ -100,5 +110,13 @@ final public class Tester {
 			frame.repaint();
 		}
 
+	}
+
+	public static ArrayList<int[][]> getLog() {
+		return log;
+	}
+
+	public static void setLog(ArrayList<int[][]> log) {
+		Tester.log = log;
 	}
 }
