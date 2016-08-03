@@ -1,154 +1,93 @@
+
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
-class SwingControl
-		extends 	JFrame
-		implements	ActionListener
-{
-	private final int	ITEM_PLAIN	=	0;	// Item types
-	private final int	ITEM_CHECK	=	1;
-	private final int	ITEM_RADIO	=	2;
-	final JFileChooser fc;
-	private	JPanel		topPanel;
-	private	JMenuBar	menuBar;
-	private	JMenu		menuDisplay;
-	private	JMenu		menuSimulate;
-	private	JMenuItem	menuDisplayLoad;
-	private	JMenuItem	menuSimulateBuild;
-	private	JMenuItem	menuSimulateNew;
-	public LoadSave l;
-	
+public class SwingControl {
 
-	public SwingControl()
-	{
-		setTitle( "Complete Menu Application" );
-		setSize( 310, 130 );
+   private JFrame mainFrame;
+   private JLabel headerLabel;
+   private JLabel statusLabel;
+   private JPanel controlPanel;
 
-		topPanel = new JPanel();
-		topPanel.setLayout( new BorderLayout() );
-		getContentPane().add( topPanel );
+   public SwingControl(){
+      prepareGUI();
+   }
+      
+   private void prepareGUI(){
+      mainFrame = new JFrame("Java SWING Examples");
+      mainFrame.setSize(400,400);
+      mainFrame.setLayout(new GridLayout(3, 1));
 
-		// Create the menu bar
-		menuBar = new JMenuBar();
+      headerLabel = new JLabel("",JLabel.CENTER );
+      statusLabel = new JLabel("",JLabel.CENTER);        
 
-		// Set this instance as the application's menu bar
-		setJMenuBar( menuBar );
-		
-		// Build the property sub-menu
-		menuDisplay = new JMenu( "Display" );
-		menuDisplay.setMnemonic( 'D' );
-		menuBar.add(menuDisplay);
+      statusLabel.setSize(350,100);
+      mainFrame.addWindowListener(new WindowAdapter() {
+         public void windowClosing(WindowEvent windowEvent){
+	        System.exit(0);
+         }        
+      });    
+      controlPanel = new JPanel();
+      controlPanel.setLayout(new FlowLayout());
 
-		// Create property items
-		menuDisplayLoad = CreateMenuItem( menuDisplay, ITEM_PLAIN,
-								"Load", null, 'S', "Display the results of a previous simulation" );
-		
-		
-		// Create the file menu
-		menuSimulate = new JMenu( "Simulate" );
-		menuSimulate.setMnemonic( 'S' );
-		menuBar.add( menuSimulate);
+      mainFrame.add(headerLabel);
+      mainFrame.add(controlPanel);
+      mainFrame.add(statusLabel);
+      mainFrame.setVisible(true);  
+   }
 
-		// Create the file menu
-		// Build a file menu items
-		menuSimulateBuild = CreateMenuItem( menuSimulate, ITEM_PLAIN,
-								"Builder File", null, 'N', "Simulate an existing initial state" );
-		menuSimulateNew = CreateMenuItem( menuSimulate, ITEM_PLAIN, "New",
-								new ImageIcon( "open.gif" ), 'O',
-								"Create a new initial state to simulate" );
-		
-		
-		menuDisplayLoad.addActionListener(new ButtonClickListener());
-		menuSimulateBuild.addActionListener(new ButtonClickListener());
-		menuSimulateNew.addActionListener(new ButtonClickListener());
-		//Create a file chooser
-		fc = new JFileChooser();
-		l = new LoadSave();
-	}
+   public void showEventDemo(){
+      headerLabel.setText("Control in action: Button"); 
 
-	public JMenuItem CreateMenuItem( JMenu menu, int iType, String sText,
-								ImageIcon image, int acceleratorKey,
-								String sToolTip )
-	{
-		// Create the item
-		JMenuItem menuItem;
+      JButton loadButton = new JButton("Load");
+      JButton simButton = new JButton("Simulate");
 
-		switch( iType )
-		{
-			case ITEM_RADIO:
-				menuItem = new JRadioButtonMenuItem();
-				break;
+      
+      loadButton.setActionCommand("Load");
+      simButton.setActionCommand("Simulate");
 
-			case ITEM_CHECK:
-				menuItem = new JCheckBoxMenuItem();
-				break;
+      
+      loadButton.addActionListener(new ButtonClickListener()); 
+      simButton.addActionListener(new ButtonClickListener()); 
 
-			default:
-				menuItem = new JMenuItem();
-				break;
-		}
+      
+      controlPanel.add(loadButton);
+      controlPanel.add(simButton);       
 
-		// Add the item test
-		menuItem.setText( sText );
+      mainFrame.setVisible(true);  
+   }
 
-		// Add the optional icon
-		if( image != null )
-			menuItem.setIcon( image );
-
-		// Add the accelerator key
-		if( acceleratorKey > 0 )
-			menuItem.setMnemonic( acceleratorKey );
-
-		// Add the optional tool tip text
-		if( sToolTip != null )
-			menuItem.setToolTipText( sToolTip );
-
-		// Add an action handler to this menu item
-		menuItem.addActionListener( this );
-
-		menu.add( menuItem );
-
-		return menuItem;
-	}
-
-	public void actionPerformed( ActionEvent event )
-	{
-		System.out.println( event );
-	}
-
-	public static void main( String args[] )
-	{
-		// Create an instance of the test application
-		SwingControl mainFrame	= new SwingControl();
-		mainFrame.setVisible( true );
-	}
-	
-	private class ButtonClickListener implements ActionListener{
-	      public void actionPerformed(ActionEvent e) {
-	         String command = e.getActionCommand();  
-	         if( command.equals( "Load" ))  {
-	        	 System.out.println("I swear this will load something eventually");
-	        	 int returnVal = fc.showOpenDialog(topPanel);
-	        	 if (returnVal == JFileChooser.APPROVE_OPTION) {
-	                 File file = fc.getSelectedFile();
-	                 ArrayList<int[][]> toOpen = l.load(file);
-	                 //This is where a real application would open the file.
-	                 System.out.println("Opening: " + file.getName() + ".");
-	                 dispose();
-	                 Tester n = new Tester(toOpen);
-	             } else {
-	                 System.out.println("Ok, fine. Don't load anything");
-	             }
-	        	 
-	         }
-	         else if(command.equals("Builder File"))  {
-	        	System.out.println("Unfortunately the path the the builder file has not been built");
-				
-	         }  	
-	      }		
-	   }
+   private class ButtonClickListener implements ActionListener{
+      public void actionPerformed(ActionEvent e) {
+         String command = e.getActionCommand();  
+         if( command.equals( "Simulate" ))  {
+        	 Simulator sim = new Simulator();
+        	 try {
+				sim.run();
+				sim.saveMap();
+        	 }
+        	 catch (Exception eTwo){
+        		 System.out.println("Simulating did not work");
+        	 }
+         } 	
+         else  {
+        	LoadSave a = new LoadSave();
+        	ArrayList<int[][]> c = a.load("SavedRun.txt");
+     		try {
+				Tester b = new Tester(c);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (UnsupportedEncodingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+         }  	
+      }		
+   }
 }
