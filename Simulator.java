@@ -34,9 +34,7 @@ public class Simulator {
 		rootMap[8][11] = 1;
 		rootMap[9][8] = 1;
 		rootMap[9][9] = 1;
-		rootMap[9][10] = 1;
-		rootMap[9][11] = 1;
-	}
+			}
 
 	public ArrayList<int[][]> run() {
 

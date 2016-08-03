@@ -104,7 +104,7 @@ final public class Tester {
 		for (oneX = 0; oneX < log.size(); oneX++) {
 
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(500);
 			} catch (Exception exc) {
 			}
 			frame.repaint();
