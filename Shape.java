@@ -20,6 +20,15 @@ public class Shape {
 		buildBitMap();
 
 	}
+	public Shape(ArrayList<Integer> xDeviation,
+			ArrayList<Integer> yDeviation){
+		this.xDeviation = xDeviation;
+		this.yDeviation = yDeviation;
+		
+		buildBitMap();
+		buildAoe();
+		
+	}
 
 	public int[][] buildBitMap() {
 		int maxX = 0;
