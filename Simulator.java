@@ -24,7 +24,7 @@ public class Simulator {
 		ArrayList<int[][]> a = new ArrayList<int[][]>();
 		rootMap = map;
 		a.add(map);
-		this.run();
+		//this.run();
 	}
 
 	public Simulator() {
@@ -46,7 +46,7 @@ public class Simulator {
 		while (numChanges != 0) {
 			// if(counter > 1000)break;
 			numChanges = 0;
-			blank = new int[rootMap.length][rootMap.length];
+			blank = new int[rootMap.length][rootMap[0].length];
 			for (int i = 0; i < rootMap.length; i++) {
 				for (int j = 0; j < rootMap[i].length; j++) {
 
@@ -70,7 +70,7 @@ public class Simulator {
 							|| getAdjacent(mapProgress.get(counter - 1),
 									new CoordPair(i, j)).length == 3) {
 						stack.push(new Order(new CoordPair(i, j), 1));
-						System.out.println("dang");
+						//System.out.println("dang");
 						numChanges++;
 					}
 
@@ -92,14 +92,14 @@ public class Simulator {
 			}
 
 			
-			System.out.println("1");
+		//	System.out.println("1");
 			// Checks for a perfect loop from initial conditions
 			if (mapProgress.size() > 1) {
-				System.out.println("2");
+				//System.out.println("2");
 				if (isSame(0, mapProgress.size() - 1)) {
-					System.out.println("3");
-					System.out.println("Ini: Period: "
-							+ (mapProgress.size() - 1));
+				//	System.out.println("3");
+				/*	System.out.println("Ini: Period: "
+							+ (mapProgress.size() - 1));*/
 					return mapProgress;
 				}
 

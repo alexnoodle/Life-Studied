@@ -33,12 +33,15 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		*/
-		SwingControl go = new SwingControl();
-		go.setVisible(true);
 		
-		
+		//File file = new File("C:\\Users\\Alex\\Desktop\\Life Studied\\LifeStudied\\Build.txt");
+		File fileTwo = new File("C:\\Users\\Alex\\Desktop\\Life Studied\\LifeStudied\\SecondSaved.txt");
+		SaveLoadv2 b = new SaveLoadv2();
+		//Simulator a = new Simulator(b.load(file).get(0));
+		//b.save(fileTwo, a.run());
+		patternCatcher.analyze(10, b.load(fileTwo));
+	
 		System.out.println("Done");
 		
 	}

@@ -31,19 +31,25 @@ public class patternCatcher {
 			ArrayList<int[][]> oMap) {
 		ArrayList<Shape> shapes = new ArrayList<Shape>();
 		int dim = oMap.get(0).length;
-		for (int x1 = 0; x1 < dim; x1++) {
+		for (int x1 = 8; x1 < dim; x1++) {
 			// System.out.println("Loop 1:");
-			for (int y1 = 0; y1 < dim; y1++) {
+			 for (int y1 = 8; y1 < dim; y1++) {
+				
 				// System.out.println("Loop 2:");
-				for (int x2 = x1 + 1; x2 < dim; x2++) {
+				 here:for (int x2 = x1 + 1; x2 < dim; x2++) {
 					// System.out.println("Loop 3:");
 					for (int y2 = y1 + 1; y2 < dim; y2++) {
 						// System.out.println("Loop 4:");
+						help:
 						for (int period = 1; period <= maxPeriod; period++) {
+							
+							
 							// System.out.println("Loop 5:");
 
 							for (int startFrame = 0; startFrame < oMap.size()
 									- period; startFrame++) {
+								if(oMap.get(startFrame)[x1][x2] == 0)//break here;
+								System.out.println(x1 + "." + y1 + "." + x2+ "." + y2+ "." + period);
 								// System.out.println("Loop 6:");
 								ArrayList<int[][]> map = makeFrameList(oMap,
 										x1, x2, y1, y2);
@@ -65,7 +71,7 @@ public class patternCatcher {
 														- x1][k - y1] != map
 														.get(startFrame
 																+ period - i)[j
-														- x1][k - y1]) {
+ - x1][k - y1]) {
 													pattern = false;
 													break outerloop;
 												}
@@ -181,6 +187,7 @@ public class patternCatcher {
 										if (!dupe) {
 											shapes.add(temp);
 											System.out.println("Shape Created!");
+											break help;
 										}
 
 									}
