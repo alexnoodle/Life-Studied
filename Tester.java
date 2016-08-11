@@ -33,7 +33,7 @@ final public class Tester {
 			UnsupportedEncodingException {
 		log = a;
 		dim = log.get(0).length;
-		new Tester().go();
+		this.go();
 	}
 
 	public void go() {
@@ -104,7 +104,7 @@ final public class Tester {
 		for (oneX = 0; oneX < log.size(); oneX++) {
 
 			try {
-				Thread.sleep(500);
+				Thread.sleep(100);
 			} catch (Exception exc) {
 			}
 			frame.repaint();

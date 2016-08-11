@@ -21,12 +21,11 @@ class SwingControl
 	private	JMenuItem	menuDisplayLoad;
 	private	JMenuItem	menuSimulateBuild;
 	private	JMenuItem	menuSimulateNew;
-	public SaveLoadv2 l;
+	public SaveLoadv2 l;	
 	
-
 	public SwingControl()
 	{
-		setTitle( "Complete Menu Application" );
+		setTitle( "Game of Life" );
 		setSize( 310, 130 );
 
 		topPanel = new JPanel();
@@ -68,7 +67,7 @@ class SwingControl
 		menuSimulateNew.addActionListener(new ButtonClickListener());
 		//Create a file chooser
 		fc = new JFileChooser();
-		l = new LoadSave();
+		l = new SaveLoadv2();
 	}
 
 	public JMenuItem CreateMenuItem( JMenu menu, int iType, String sText,
@@ -121,18 +120,26 @@ class SwingControl
 		System.out.println( event );
 	}
 
-	public static void main( String args[] )
-	{
-		// Create an instance of the test application
-		SwingControl mainFrame	= new SwingControl();
-		mainFrame.setVisible( true );
-	}
 	
 	private class ButtonClickListener implements ActionListener{
+		
 	      public void actionPerformed(ActionEvent e) {
+	    	  
 	         String command = e.getActionCommand();  
+	         outerLoop:
 	         if( command.equals( "Load" ))  {
 	        	 System.out.println("I swear this will load something eventually");
+	        	 int returnVal = fc.showOpenDialog(topPanel);
+	        	 if (returnVal == JFileChooser.APPROVE_OPTION) {
+	                 File file = fc.getSelectedFile();
+	                 StaticElec.tryIt(file);
+	                 break outerLoop;
+	             } else {
+	                 System.out.println("Ok, fine. Don't load anything");
+	             }
+	        	 
+	         }
+	         else if(command.equals("Builder File"))  {
 	        	 int returnVal = fc.showOpenDialog(topPanel);
 	        	 if (returnVal == JFileChooser.APPROVE_OPTION) {
 	                 File file = fc.getSelectedFile();
@@ -140,15 +147,11 @@ class SwingControl
 	                 //This is where a real application would open the file.
 	                 System.out.println("Opening: " + file.getName() + ".");
 	                 dispose();
-	                 Tester n;
-	             } else {
-	                 System.out.println("Ok, fine. Don't load anything");
-	             }
-	        	 
-	         }
-	         else if(command.equals("Builder File"))  {
-	        	System.out.println("Unfortunately the path the the builder file has not been built");
-				
+	                 Simulator s = new Simulator(toOpen.get(0));
+	                 File d = new File("C:\\Users\\Alex\\Desktop\\Life Studied\\LifeStudied\\SecondSaved.txt");
+	                 l.save(d, s.getMapProgress());
+	                 System.out.println("we got to here!");
+	        	 }
 	         }  	
 	      }		
 	   }

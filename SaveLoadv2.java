@@ -51,7 +51,7 @@ public class SaveLoadv2 {
 		return map;
 	}
 
-	public File save(String path, String fileName, String[] contents) {
+	public File save(String path, String fileName, ArrayList<int[][]> contents) {
 		File a = newFile(path, fileName);
 		save(a , contents);
 		return a;

@@ -24,6 +24,7 @@ public class Simulator {
 		ArrayList<int[][]> a = new ArrayList<int[][]>();
 		rootMap = map;
 		a.add(map);
+		this.run();
 	}
 
 	public Simulator() {
