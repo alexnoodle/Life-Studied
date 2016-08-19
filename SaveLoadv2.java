@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class SaveLoadv2 {
+	
+	public SaveLoadv2(){
+		
+	}
 
 	public ArrayList<int[][]> load(File file) {
 		ArrayList<int[][]> map = new ArrayList<int[][]>();
@@ -65,9 +69,12 @@ public class SaveLoadv2 {
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(Integer.toString(contents.get(0).length));
 			bw.newLine();
+			bw.write(Integer.toString(contents.get(0)[0].length));
+			
+			bw.newLine();
 			for(int i = 0; i < contents.size(); i++){
 				for(int j = 0; j < contents.get(i).length; j ++){
-					for(int k = 0; k < contents.get(i).length; k ++){
+					for(int k = 0; k < contents.get(i)[j].length; k ++){
 						if(contents.get(i)[j][k] == 1){
 							bw.write(Integer.toString(j));
 							bw.newLine();
@@ -80,7 +87,7 @@ public class SaveLoadv2 {
 				bw.newLine();
 				}
 
-			
+			}
 			bw.flush();
 			bw.close();
 		} catch (IOException e) {
