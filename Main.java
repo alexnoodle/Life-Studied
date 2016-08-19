@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 public class Main {
 	public static void main(String[] args) {
@@ -44,5 +45,22 @@ public class Main {
 	
 		System.out.println("Done");
 		
+	}
+	public static void look(String filePath){
+		SaveLoadv2 a = new SaveLoadv2();
+		File f = new File(filePath);
+		File[] b = f.listFiles();
+		Tester c;
+		for(int i = 0; i < b.length; i ++){
+			try{
+				ArrayList<int[][]> g = a.load(b[i]);
+				c= new Tester(g);
+				Thread.sleep((g.size() * 100) + 500);
+				System.out.println(b[i].getPath());
+			}
+			catch(Exception e){
+				System.out.println("It was not possible to load everything");
+			}
+		}
 	}
 }
