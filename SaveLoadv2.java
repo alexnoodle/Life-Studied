@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class SaveLoadv2 {
+	
+	public SaveLoadv2(){
+		
+	}
 
 	public ArrayList<int[][]> load(File file) {
 		ArrayList<int[][]> map = new ArrayList<int[][]>();
@@ -14,6 +18,12 @@ public class SaveLoadv2 {
 			String verify, putData;
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
+			verify = br.readLine();
+			int dim = 0;
+			if(verify != null && !(verify.equals("-1"))){
+				dim = Integer.parseInt(verify);
+			}
+			int[][] blank = new int[dim][dim];
 			while ((verify = br.readLine()) != null) {
 				if (verify != null) {
 					// Do the Thing
@@ -46,9 +56,25 @@ public class SaveLoadv2 {
 
 			FileWriter fw = new FileWriter(file);
 			BufferedWriter bw = new BufferedWriter(fw);
-			for (String a : contents) {
-				bw.write(a);
+			bw.write(Integer.toString(contents.get(0).length));
+			bw.newLine();
+			bw.write(Integer.toString(contents.get(0)[0].length));
+			
+			bw.newLine();
+			for(int i = 0; i < contents.size(); i++){
+				for(int j = 0; j < contents.get(i).length; j ++){
+					for(int k = 0; k < contents.get(i)[j].length; k ++){
+						if(contents.get(i)[j][k] == 1){
+							bw.write(Integer.toString(j));
+							bw.newLine();
+							bw.write(Integer.toString(k));
+							bw.newLine();
+						}
+					}
+				}
+				bw.write("-1");
 				bw.newLine();
+				}
 
 			}
 			bw.flush();

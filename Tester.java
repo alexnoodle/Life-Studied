@@ -14,6 +14,7 @@ final public class Tester {
 	private int oneX = 0;
 
 	private static int dim;
+	private static int dim2;
 
 	static ArrayList<int[][]> log = new ArrayList<int[][]>();
 
@@ -21,19 +22,11 @@ final public class Tester {
 		// this.openMap();
 	}
 
-	public static void main(String[] args) throws FileNotFoundException,
-			UnsupportedEncodingException {
-		Simulator a = new Simulator();
-		log = a.run();
-		dim = log.get(0).length;
-		new Tester().go();
-	}
-
 	public Tester(ArrayList<int[][]> a) throws FileNotFoundException,
 			UnsupportedEncodingException {
 		log = a;
 		dim = log.get(0).length;
-		new Tester().go();
+		this.go();
 	}
 
 	public void go() {
@@ -46,7 +39,7 @@ final public class Tester {
 
 		frame.setVisible(true);
 		frame.setResizable(false);
-		frame.setSize((dim * 10) + 50, (dim * 10) + 50);
+		frame.setSize((dim * 10) + 50, (dim2 * 10) + 50);
 		frame.setLocation(50, 0);
 		moveIt();
 	}
@@ -54,12 +47,12 @@ final public class Tester {
 	class DrawPanel extends JPanel {
 		public void paintComponent(Graphics g) {
 			for (int i = 0; i < dim * 10; i += 10) {
-				for (int j = 0; j < dim * 10; j += 10) {
+				for (int j = 0; j < dim2 * 10; j += 10) {
 					g.drawRect(i, j, 10, 10);
 				}
 			}
 			for (int k = 0; k < dim; k++) {
-				for (int l = 0; l < dim; l++) {
+				for (int l = 0; l < dim2; l++) {
 					// System.out.println(log.size());
 					if (oneX < log.size()) {
 						if (log.get(oneX)[k][l] == 1) {
@@ -72,33 +65,7 @@ final public class Tester {
 		}
 	}
 
-	public void openMap() {
-		try {
-			Scanner openFile = null;
-			openFile = new Scanner(new File("SavedRun.txt"));
-			dim = openFile.nextInt();
-			int[][] blank = new int[dim][dim];
-			while (openFile.hasNextLine()) {
-				int x;
-				int y;
-				int next;
-				next = openFile.nextInt();
-				if (!(next == -1)) {
-					x = next;
-					y = openFile.nextInt();
-					blank[x][y] = 1;
-				} else {
-					log.add(blank);
-					blank = new int[dim][dim];
-				}
-			}
-			openFile.close();
-		} catch (Exception e) {
-			System.out.println("Opening didn't work");
-		}
-		this.go();
-	}
-
+	
 	private void moveIt() {
 
 		for (oneX = 0; oneX < log.size(); oneX++) {

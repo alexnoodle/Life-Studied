@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class Simulator {
 
-	private int[][] rootMap = new int[9999][9999];
+	private int[][] rootMap;
 	private ArrayList<int[][]> mapProgress = new ArrayList<int[][]>();
 	private Stack<Order> stack = new Stack<Order>();
 
@@ -98,9 +98,9 @@ public class Simulator {
 			if (mapProgress.size() > 1) {
 				System.out.println("2");
 				if (isSame(0, mapProgress.size() - 1)) {
-					System.out.println("3");
-					System.out.println("Ini: Period: "
-							+ (mapProgress.size() - 1));
+				//	System.out.println("3");
+				/*	System.out.println("Ini: Period: "
+							+ (mapProgress.size() - 1));*/
 					return mapProgress;
 				}
 
@@ -108,8 +108,9 @@ public class Simulator {
 				if (mapProgress.size() > 2) {
 
 					if (isSame(mapProgress.size() - 1, mapProgress.size() - 2)) {
-						System.out.println("stagnant: Period: "
-								+ (mapProgress.size() - 1));
+						/*System.out.println("stagnant: Period: "
+								+ (mapProgress.size() - 1));*/
+					//	Parcel.value = mapProgress.size() - 1;
 						return mapProgress;
 					}
 				}
@@ -119,8 +120,9 @@ public class Simulator {
 					for (int i = mapProgress.size() - 1; i > 0; i--) {
 						for (int j = i - 1; j > 0; j--) {
 							if (isSame(i, j)) {
-								System.out.println("Ini: Formed Period: "
-										+ (i - j));
+						/*		System.out.println("Ini: Formed Period: "
+										+ (i - j));*/
+								//Parcel.value = - 1;
 								return mapProgress;
 							}
 						}
@@ -132,6 +134,7 @@ public class Simulator {
 
 			
 		}
+		Parcel.value = -1;
 		return mapProgress;
 
 	}
@@ -151,30 +154,13 @@ public class Simulator {
 
 
 
-	public void saveMap() throws FileNotFoundException,
-			UnsupportedEncodingException {
-		PrintWriter writer = new PrintWriter("SavedRun.txt", "UTF-8");
-		writer.println(mapProgress.get(0).length);
-		for (int i = 0; i < mapProgress.size(); i++) {
-			for (int j = 0; j < mapProgress.get(i).length; j++) {
-				for (int k = 0; k < mapProgress.get(i).length; k++) {
-					if (mapProgress.get(i)[j][k] == 1) {
-						writer.println(j);
-						writer.println(k);
-					}
-				}
-			}
-			writer.println("-1");
-		}
-		writer.println("finished");
-		writer.close();
-	}
+
 
 	public CoordPair[] getAdjacent(int[][] map, CoordPair a) {
 
 		ArrayList<CoordPair> adjac = new ArrayList<CoordPair>();
 
-		if (a.getyCoord() + 1 < rootMap.length) {
+		if (a.getyCoord() + 1 < rootMap[0].length) {
 			if (map[a.getxCoord()][a.getyCoord() + 1] == 1) {
 				adjac.add(new CoordPair(a.getxCoord(), a.getyCoord() + 1));
 			}
@@ -200,7 +186,7 @@ public class Simulator {
 		//
 
 		if (a.getxCoord() + 1 < rootMap.length
-				&& a.getyCoord() + 1 < rootMap.length) {
+				&& a.getyCoord() + 1 < rootMap[0].length) {
 			if (map[a.getxCoord() + 1][a.getyCoord() + 1] == 1) {
 				adjac.add(new CoordPair(a.getxCoord() + 1, a.getyCoord() + 1));
 			}
@@ -217,7 +203,7 @@ public class Simulator {
 			}
 		}
 
-		if (a.getxCoord() - 1 > -1 && a.getyCoord() + 1 < rootMap.length) {
+		if (a.getxCoord() - 1 > -1 && a.getyCoord() + 1 < rootMap[0].length) {
 			if (map[a.getxCoord() - 1][a.getyCoord() + 1] == 1) {
 				adjac.add(new CoordPair(a.getxCoord() + 1, a.getyCoord() - 1));
 			}
