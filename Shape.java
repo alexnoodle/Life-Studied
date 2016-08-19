@@ -20,15 +20,6 @@ public class Shape {
 		buildBitMap();
 
 	}
-	public Shape(ArrayList<Integer> xDeviation,
-			ArrayList<Integer> yDeviation){
-		this.xDeviation = xDeviation;
-		this.yDeviation = yDeviation;
-		
-		buildBitMap();
-		buildAoe();
-		
-	}
 
 	public int[][] buildBitMap() {
 		int maxX = 0;
@@ -41,10 +32,9 @@ public class Shape {
 			if (maxY < a)
 				maxY = a;
 		}
-		int[][] map = new int[maxX+1][maxY+1];
+		int[][] map = new int[maxX][maxY];
 
 		for (int i = 0; i < xDeviation.size(); i++) {
-			
 			map[xDeviation.get(i)][yDeviation.get(i)] = 1;
 		}
 
@@ -73,7 +63,7 @@ public class Shape {
 				}
 			}
 		}
-		/*for (int i = 0; i < aoexDeviation.size(); i++) {
+		for (int i = 0; i < aoexDeviation.size(); i++) {
 			for (int j = i; j < aoexDeviation.size(); j++) {
 				if (aoexDeviation.get(i) == aoexDeviation.get(j)
 						&& aoeyDeviation.get(i) == aoeyDeviation.get(j)) {
@@ -81,32 +71,26 @@ public class Shape {
 					aoexDeviation.remove(i);
 				}
 			}
-		}*/
+		}
 		int xMax = 0;
 		int yMax = 0;
 		for (int i = 0; i < aoexDeviation.size(); i++) {
-			if (aoexDeviation.get(i)+4999 > xMax)
-				xMax = aoexDeviation.get(i)+4999;
-			if (aoeyDeviation.get(i)+4999 > yMax)
-				yMax = aoeyDeviation.get(i)+4999;
+			if (aoexDeviation.get(i) > xMax)
+				xMax = aoexDeviation.get(i);
+			if (aoeyDeviation.get(i) > yMax)
+				yMax = aoeyDeviation.get(i);
 		}
 
-		aoe = new int[xMax+1][yMax+1];
+		aoe = new int[xMax][yMax];
 		int xMid = (int) Math.floor(xMax/2);
 		int yMid = (int) Math.floor(yMax/2);
 
 		
 		for(int i = 0; i < aoexDeviation.size(); i++){
-			aoe[aoexDeviation.get(i)+4999][aoeyDeviation.get(i)+4999] = 3;
+			aoe[xMid + aoexDeviation.get(i)][yMid + aoeyDeviation.get(i)] = 3;
 		}
 		for(int i = 0; i < xDeviation.size(); i++){
-			aoe[xDeviation.get(i)][ yDeviation.get(i)] = 1;
-		}
-		for (int i = 0; i < aoexDeviation.size(); i++) {
-			
-			aoexDeviation.set(i, aoexDeviation.get(i)+4999);
-			
-			aoeyDeviation.set(i,aoeyDeviation.get(i)+4999);
+			aoe[xMid + xDeviation.get(i)][yMid + yDeviation.get(i)] = 1;
 		}
 		
 	}
