@@ -22,11 +22,21 @@ final public class Tester {
 		// this.openMap();
 	}
 
+	public static void main(String[] args) throws FileNotFoundException,
+			UnsupportedEncodingException {
+		Simulator a = new Simulator();
+		log = a.run();
+		dim = log.get(0).length;
+		new Tester().go();
+	}
+
 	public Tester(ArrayList<int[][]> a) throws FileNotFoundException,
 			UnsupportedEncodingException {
 		log = a;
 		dim = log.get(0).length;
-		this.go();
+		dim2 = log.get(0)[0].length;
+
+		new Tester().go();
 	}
 
 	public void go() {
@@ -71,7 +81,7 @@ final public class Tester {
 		for (oneX = 0; oneX < log.size(); oneX++) {
 
 			try {
-				Thread.sleep(100);
+				Thread.sleep(500);
 			} catch (Exception exc) {
 			}
 			frame.repaint();
