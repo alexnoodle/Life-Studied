@@ -100,7 +100,6 @@ public class Simulator {
 				//	System.out.println("3");
 				/*	System.out.println("Ini: Period: "
 							+ (mapProgress.size() - 1));*/
-					Parcel.value = mapProgress.size()-1;
 					return mapProgress;
 				}
 
@@ -110,7 +109,7 @@ public class Simulator {
 					if (isSame(mapProgress.size() - 1, mapProgress.size() - 2)) {
 						/*System.out.println("stagnant: Period: "
 								+ (mapProgress.size() - 1));*/
-					Parcel.value = mapProgress.size() - 1;
+					//	Parcel.value = mapProgress.size() - 1;
 						return mapProgress;
 					}
 				}
@@ -122,7 +121,7 @@ public class Simulator {
 							if (isSame(i, j)) {
 						/*		System.out.println("Ini: Formed Period: "
 										+ (i - j));*/
-								Parcel.value = - 1;
+								//Parcel.value = - 1;
 								return mapProgress;
 							}
 						}
@@ -137,73 +136,6 @@ public class Simulator {
 		Parcel.value = -1;
 		return mapProgress;
 
-	}
-	
-	public int[][] calculateStep(){
-		
-		mapProgress.add(rootMap.clone());
-		int counter = 1;
-		int[][] blank;
-	
-			
-		
-			blank = new int[rootMap.length][rootMap[0].length];
-			for (int i = 0; i < rootMap.length; i++) {
-				for (int j = 0; j < rootMap[i].length; j++) {
-
-					if (mapProgress.get(counter - 1)[i][j] == 0
-							&& getAdjacent(mapProgress.get(counter - 1),
-									new CoordPair(i, j)).length == 3) {
-						stack.push(new Order(new CoordPair(i, j), 1));
-						
-					}
-
-					if (mapProgress.get(counter - 1)[i][j] == 1
-							&& getAdjacent(mapProgress.get(counter - 1),
-									new CoordPair(i, j)).length > 3) {
-						stack.push(new Order(new CoordPair(i, j), 0));
-						
-					}
-
-					if (mapProgress.get(counter - 1)[i][j] == 1
-							&& getAdjacent(mapProgress.get(counter - 1),
-									new CoordPair(i, j)).length == 2
-							|| getAdjacent(mapProgress.get(counter - 1),
-									new CoordPair(i, j)).length == 3) {
-						stack.push(new Order(new CoordPair(i, j), 1));
-					
-					
-					}
-
-					if (mapProgress.get(counter - 1)[i][j] == 1
-							&& getAdjacent(mapProgress.get(counter - 1),
-									new CoordPair(i, j)).length < 2) {
-						stack.push(new Order(new CoordPair(i, j), 0));
-					
-					}
-
-				}
-
-			}
-			Order current;
-			while (!stack.isEmpty()) {
-				current = stack.pop();
-				blank[current.getLoc().getxCoord()][current.getLoc()
-						.getyCoord()] = current.getSetValue();
-			}
-
-			
-	
-			
-				
-							
-						
-					
-							
-				return blank;
-				
-		
-		
 	}
 
 	public boolean isSame(int a, int b) {

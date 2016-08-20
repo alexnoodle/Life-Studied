@@ -10,7 +10,6 @@ public class Shape {
 	private int[][] map;
 	private int[][] aoe;
 	private int type;
-	private Tree tree;
 	public Shape(String name, ArrayList<Integer> xDeviation,
 			ArrayList<Integer> yDeviation, int[][] aoe) {
 		super();
@@ -27,7 +26,7 @@ public class Shape {
 		this.yDeviation = yDeviation;
 		
 		buildBitMap();
-	//	buildAoe();
+		buildAoe();
 		
 	}
 
@@ -195,12 +194,6 @@ public class Shape {
 
 	public void setType(int type) {
 		this.type = type;
-	}
-	public Tree getTree() {
-		return tree;
-	}
-	public void setTree(Tree tree) {
-		this.tree = tree;
 	}
 
 }
