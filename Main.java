@@ -10,29 +10,12 @@ import java.util.Date;
 public class Main {
 	public static void main(String[] args) {
 
-		// allDaGrid(100);
-		/*
-		 * new SaveLoadv2().save(new
-		 * File("C:\\Users\\Jack\\Desktop\\square.txt"),new Simulator(new
-		 * SaveLoadv2().load(new
-		 * File("C:\\Users\\Jack\\Desktop\\square.txt")).get(0)).run()); try {
-		 * new Tester(new SaveLoadv2().load(new
-		 * File("C:\\Users\\Jack\\Desktop\\square.txt"))); } catch
-		 * (FileNotFoundException e1) { // TODO Auto-generated catch block
-		 * e1.printStackTrace(); } catch (UnsupportedEncodingException e1) { //
-		 * TODO Auto-generated catch block e1.printStackTrace(); }
-		 * 
-		 * Builder a = new Builder(); a.launchBuilder(patternCatcher.analyze(
-		 * 3,new Simulator(new SaveLoadv2().load(new
-		 * File("C:\\Users\\Jack\\Desktop\\square.txt")).get(0)).run())); try {
-		 * new Tester(new Simulator(a.getMap().get(0)).run()); } catch
-		 * (FileNotFoundException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } catch (UnsupportedEncodingException e) { //
-		 * TODO Auto-generated catch block e.printStackTrace(); }
-		 */
-		Parcel.deBug = false;
-//	analyzeAndClean("C:\\Users\\Jack\\Desktop\\Cullen\\tempDataDump\\",2);
-	//look("C:\\Users\\Jack\\Desktop\\Cullen\\tempDataDump\\shapePatterns2");
+		
+		
+		
+		
+		
+		
 		Parcel.trace("Done");
 
 	}

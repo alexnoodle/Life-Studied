@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Spock {
 
@@ -29,32 +30,35 @@ public class Spock {
 
 	public static ArrayList<Shape> patternCatch(int maxPeriod,
 			ArrayList<int[][]> oMap) {
-	
+
 		ArrayList<Shape> shapes = new ArrayList<Shape>();
 		int dim = oMap.get(0).length;
 		for (int x1 = 0; x1 < dim; x1++) {
-			 Parcel.trace("Loop 1:");
-			 for (int y1 = 0; y1 < dim; y1++) {
-				
-				 Parcel.trace("Loop 2:");
-				 here:for (int x2 = x1 + 1; x2 < dim; x2++) {
-					 Parcel.trace("Loop 3:");
+			Parcel.trace("Loop 1:");
+			for (int y1 = 0; y1 < dim; y1++) {
+
+				Parcel.trace("Loop 2:");
+				here: for (int x2 = x1 + 1; x2 < dim; x2++) {
+					Parcel.trace("Loop 3:");
 					for (int y2 = y1 + 1; y2 < dim; y2++) {
-						
-						 Parcel.trace("Loop 4:");
-						help:
-						for (int period = 1; period <= maxPeriod; period++) {
-							
-							
-							 Parcel.trace("Loop 5:");
+
+						Parcel.trace("Loop 4:");
+						help: for (int period = 1; period <= maxPeriod; period++) {
+
+							Parcel.trace("Loop 5:");
 
 							for (int startFrame = 0; startFrame < oMap.size()
 									- period; startFrame++) {
-								if(getAdjacent(oMap.get(startFrame), new CoordPair(x1,y1)).length == 0)break here;
-								if(getAdjacent(oMap.get(startFrame), new CoordPair(x2,y2)).length == 0)break here;
-								
-								Parcel.trace(x1 + "." + y1 + "." + x2+ "." + y2+ "." + period);
-								 Parcel.trace("Loop 6:");
+								if (getAdjacent(oMap.get(startFrame),
+										new CoordPair(x1, y1)).length == 0)
+									break here;
+								if (getAdjacent(oMap.get(startFrame),
+										new CoordPair(x2, y2)).length == 0)
+									break here;
+
+								Parcel.trace(x1 + "." + y1 + "." + x2 + "."
+										+ y2 + "." + period);
+								Parcel.trace("Loop 6:");
 								ArrayList<int[][]> map = makeFrameList(oMap,
 										x1, x2, y1, y2);
 								boolean pattern;
@@ -81,7 +85,7 @@ public class Spock {
 
 								} else if (period % 2 == 1) {
 									Parcel.trace("Odd Period");
-								
+
 									pattern = true;
 									notBlank = false;
 									outerloop: for (int i = 0; i < (period - 1) / 2; i++) {
@@ -106,7 +110,6 @@ public class Spock {
 
 								} else {
 									Parcel.trace("Even Period");
-									 
 
 									pattern = true;
 									notBlank = false;
@@ -125,7 +128,7 @@ public class Spock {
 																+ period - i)[j
 														- x1][k - y1]) {
 													Parcel.trace("Section is not patter for period "
-																	+ period);
+															+ period);
 													pattern = false;
 													break outerloop;
 												}
@@ -133,7 +136,7 @@ public class Spock {
 										}
 									}
 								}
-								 
+
 								if (pattern && notBlank) {
 									Parcel.trace("Pattern Found");
 
@@ -141,7 +144,7 @@ public class Spock {
 											map.get(startFrame));
 									Parcel.value = -1;
 									sim.run();
-								//	Parcel.trace(Parcel.value);
+									// Parcel.trace(Parcel.value);
 									if (Parcel.value == period) {
 										Parcel.trace("Simulator confirms period");
 										ArrayList<Integer> xDeviation = new ArrayList<Integer>();
@@ -180,78 +183,90 @@ public class Spock {
 										Shape temp = new Shape(xDeviation,
 												yDeviation);
 										boolean dupe = false;
-										if(shapes.size() != 0){
-										dupe = true;
-										for (int l = -1; l < shapes.size(); l++) {
-											if( l == -1){
-												l = 0;
-											}
-											Shape c = shapes.get(l);
-											int tempCount = 0;
-											int cCount = 0;
-											
-											for(int i = 0; i < temp.getxDeviation().size();i++){
-												if(temp.getxDeviation().get(i) != 0||temp.getyDeviation().get(i)!=0){
-													tempCount++;
-													
+										if (shapes.size() != 0) {
+											dupe = true;
+											for (int l = -1; l < shapes.size(); l++) {
+												if (l == -1) {
+													l = 0;
 												}
-											}
-											
-											for(int i = 0; i < c.getxDeviation().size();i++){
-												if(c.getxDeviation().get(i) != 0||c.getyDeviation().get(i)!=0){
-													cCount++;
-													
+												Shape c = shapes.get(l);
+												int tempCount = 0;
+												int cCount = 0;
+
+												for (int i = 0; i < temp
+														.getxDeviation().size(); i++) {
+													if (temp.getxDeviation()
+															.get(i) != 0
+															|| temp.getyDeviation()
+																	.get(i) != 0) {
+														tempCount++;
+
+													}
 												}
-											}
-											if (cCount == tempCount) {
-												dupe = false;
-												Parcel.trace("dupe1");
-												break;
-											}
-											for (int i = 0; i < c
-													.getxDeviation().size(); i++) {
-												
-												if (c.getxDeviation().get(i) != temp
-														.getxDeviation().get(i)) {
+
+												for (int i = 0; i < c
+														.getxDeviation().size(); i++) {
+													if (c.getxDeviation()
+															.get(i) != 0
+															|| c.getyDeviation()
+																	.get(i) != 0) {
+														cCount++;
+
+													}
+												}
+												if (cCount == tempCount) {
 													dupe = false;
-													Parcel.trace("dupe2");
+													Parcel.trace("dupe1");
 													break;
 												}
-												if (c.getyDeviation().get(i) != temp
-														.getyDeviation().get(i)) {
-													dupe = false;
-													Parcel.trace("dupe3");
-													break;
+												for (int i = 0; i < c
+														.getxDeviation().size(); i++) {
+
+													if (c.getxDeviation()
+															.get(i) != temp
+															.getxDeviation()
+															.get(i)) {
+														dupe = false;
+														Parcel.trace("dupe2");
+														break;
+													}
+													if (c.getyDeviation()
+															.get(i) != temp
+															.getyDeviation()
+															.get(i)) {
+														dupe = false;
+														Parcel.trace("dupe3");
+														break;
+													}
 												}
-											}
 											}
 										}
-										
+
 										boolean go = true;
-										for(int i = 0; i < shapes.size(); i++){
-											if(isSame(temp.getxDeviation(), shapes.get(i).getxDeviation()))
-											{
+										for (int i = 0; i < shapes.size(); i++) {
+											if (isSame(temp.getxDeviation(),
+													shapes.get(i)
+															.getxDeviation())) {
 												go = false;
 												break;
-												}
-											if(isSame(temp.getyDeviation(), shapes.get(i).getyDeviation()))
-											{
-												go = false;
-												break;
-												}
 											}
+											if (isSame(temp.getyDeviation(),
+													shapes.get(i)
+															.getyDeviation())) {
+												go = false;
+												break;
+											}
+										}
 										if (go) {
 											shapes.add(temp);
 											Parcel.trace("Shape Created!");
-											
-											
-										
+
 											break help;
 										}
 
 									}
 
-									 pattern = false;
+									pattern = false;
 								}
 
 							}
@@ -273,7 +288,7 @@ public class Spock {
 		ArrayList<CoordPair> adjac = new ArrayList<CoordPair>();
 
 		if (a.getyCoord() + 1 < map[0].length) {
-	//	Parcel.trace(a.getxCoord());
+			// Parcel.trace(a.getxCoord());
 			if (map[a.getxCoord()][a.getyCoord() + 1] == 1) {
 				adjac.add(new CoordPair(a.getxCoord(), a.getyCoord() + 1));
 			}
@@ -296,7 +311,6 @@ public class Spock {
 				adjac.add(new CoordPair(a.getxCoord() - 1, a.getyCoord()));
 			}
 		}
-		
 
 		if (a.getxCoord() + 1 < map.length && a.getyCoord() + 1 < map[0].length) {
 			if (map[a.getxCoord() + 1][a.getyCoord() + 1] == 1) {
@@ -321,20 +335,175 @@ public class Spock {
 			}
 		}
 
-		
-
 		CoordPair[] reto = new CoordPair[adjac.size()];
 		for (int k = 0; k < adjac.size(); k++) {
 			reto[k] = adjac.get(k);
 		}
 		return reto;
 	}
-	
-	public static boolean isSame(ArrayList<Integer> a, ArrayList<Integer> b){
-		if(a.size() != b.size()) return false;
-		for(int i = 0; i < a.size(); i++){
-			if(a.get(i) != b.get(i))return false;
+
+	public static boolean isSame(int[][] a, int[][] b) {
+
+		if (a.length != b.length || a[0].length != b[0].length) {
+			return false;
+		}
+		for (int i = 0; i < a.length; i++) {
+			for (int j = 0; j < b[i].length; j++) {
+				if (a[i][j] != b[i][j]) {
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	public static boolean isSame(ArrayList<Integer> a, ArrayList<Integer> b) {
+
+		if (a.size() != b.size())
+			return false;
+		for (int i = 0; i < a.size(); i++) {
+			if (a.get(i) != b.get(i))
+				return false;
 		}
 		return true;
+	}
+
+	public static Tree calculateTree(int maxDepth, int[][] rootMap) {
+
+		Node root = new Node(rootMap);
+		root.map = rootMap.clone();
+		root.loadUnderlings(getUnderlings(rootMap, 1, maxDepth));
+
+		return new Tree(root);
+	}
+
+	public static boolean thisAndOnly(int[][] toSearch, int[][] searchFor) {
+
+		for (int i = 0; i < toSearch.length; i++) {
+			for (int j = 0; j < toSearch[i].length; j++) {
+				//Parcel.trace(i + " " + j);
+				if (i == 0 || i == toSearch.length - 1) {
+
+					if (toSearch[i][j] == 1) {
+						
+						return false;
+					}
+				} else if (j == 0 || j == toSearch[i].length - 1) {
+
+					if (toSearch[i][j] == 1) {
+												return false;
+					}
+				} else {
+					
+
+							if (searchFor[i-1][j-1] != toSearch[i][j]) {
+								// Parcel.trace(searchFor[k][l]);
+							
+								return false;
+							
+
+						
+					}
+				}
+
+			}
+		}
+		
+
+		return true;
+	}
+
+	public static ArrayList<Node> getUnderlings(int[][] map, int depth,
+			int maxDepth) {
+		int[][] blank = new int[map.length + 2][map[0].length + 2];
+		ArrayList<Node> underlings = new ArrayList<Node>();
+		int square = blank.length * blank[0].length;
+		int[][] nextStep;
+		int max = 0;
+		for (int i = 0; i < square; i++) {
+			max += Math.pow(2, i);
+		}
+
+		String string;
+
+		int percent = 0;
+
+		for (int i = 0; i < (max); i++) {
+			blank = new int[map.length + 2][map[0].length + 2];
+			string = (String.format("%" + (square) + "s",
+					Integer.toBinaryString(i)).replace(" ", "0"));
+			// Parcel.trace(string);
+
+			int count = -1;
+
+			for (int j = 0; j < blank.length; j++) {
+				for (int k = 0; k < blank[j].length; k++) {
+					count++;
+					blank[j][k] = (int) string.charAt(count) - 48;
+				}
+
+			}
+			nextStep = returnNextStep(blank);
+			if (thisAndOnly(nextStep, map)) {
+				Node next = new Node(blank);
+				if (depth + 1 <= maxDepth) {
+					next.loadUnderlings(getUnderlings(blank, depth + 1,
+							maxDepth));
+				}
+				Parcel.trace(i);
+				underlings.add(next);
+			}
+
+		}
+
+		return underlings;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static int[][] returnNextStep(int[][] map) {
+		int counter = -1;
+		Stack stack = new Stack();
+		int[][] blank = new int[map.length][map[0].length];
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
+
+				if (map[i][j] == 0
+						&& getAdjacent(map, new CoordPair(i, j)).length == 3) {
+					stack.push(new Order(new CoordPair(i, j), 1));
+
+				}
+
+				if (map[i][j] == 1
+						&& getAdjacent(map, new CoordPair(i, j)).length > 3) {
+					stack.push(new Order(new CoordPair(i, j), 0));
+
+				}
+
+				if (map[i][j] == 1
+						&& getAdjacent(map, new CoordPair(i, j)).length == 2
+						|| getAdjacent(map, new CoordPair(i, j)).length == 3) {
+					stack.push(new Order(new CoordPair(i, j), 1));
+					// Parcel.trace("dang");
+
+				}
+
+				if (map[i][j] == 1
+						&& getAdjacent(map, new CoordPair(i, j)).length < 2) {
+					stack.push(new Order(new CoordPair(i, j), 0));
+
+				}
+
+			}
+
+		}
+		Order current;
+		while (!stack.isEmpty()) {
+			current = (Order) stack.pop();
+			blank[current.getLoc().getxCoord()][current.getLoc().getyCoord()] = current
+					.getSetValue();
+		}
+
+		return blank;
 	}
 }

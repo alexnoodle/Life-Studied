@@ -140,6 +140,8 @@ public class Simulator {
 		return mapProgress;
 
 	}
+	
+	
 
 	public boolean isSame(int a, int b) {
 		for (int i = 0; i < mapProgress.get(0).length; i++) {
