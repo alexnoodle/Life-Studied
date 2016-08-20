@@ -56,6 +56,21 @@ public class SaveLoadv2 {
 		return map;
 	}
 
+	public void makeTxT(String path, String fileName, String contents){
+		
+		File a = newFile(path, fileName);
+		try{
+		FileWriter fw = new FileWriter(a);
+		BufferedWriter bw = new BufferedWriter(fw);
+		bw.write(contents);
+		bw.newLine();
+		bw.close();
+		}catch(Exception e){
+			
+		}
+		
+		
+	}
 	public File save(String path, String fileName, ArrayList<int[][]> contents) {
 		File a = newFile(path, fileName);
 		save(a , contents);

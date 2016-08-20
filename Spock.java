@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class patternCatcher {
+public class Spock {
 
 	public static int[][] makeFrame(int[][] bigPicture, int x1, int x2, int y1,
 			int y2) {
@@ -27,11 +27,9 @@ public class patternCatcher {
 
 	}
 
-	public static ArrayList<Shape> analyze(int maxPeriod,
+	public static ArrayList<Shape> patternCatch(int maxPeriod,
 			ArrayList<int[][]> oMap) {
-		ArrayList<Integer> deadZoneYIn = new ArrayList<Integer>();
-		ArrayList<Integer> deadZoneXIn = new ArrayList<Integer>();
-		ArrayList<Integer> deadZoneXOut = new ArrayList<Integer>();
+	
 		ArrayList<Shape> shapes = new ArrayList<Shape>();
 		int dim = oMap.get(0).length;
 		for (int x1 = 0; x1 < dim; x1++) {
@@ -42,13 +40,7 @@ public class patternCatcher {
 				 here:for (int x2 = x1 + 1; x2 < dim; x2++) {
 					 Parcel.trace("Loop 3:");
 					for (int y2 = y1 + 1; y2 < dim; y2++) {
-						for(int i = 0; i < deadZoneYIn.size(); i++){
-							/*if(y1 == deadZoneYIn.get(i) && x1 == deadZoneXIn.get(i)){
-								x1 = deadZoneXOut.get(i);
-								x2 = deadZoneXOut.get(i);
-								break;
-							}*/
-						}
+						
 						 Parcel.trace("Loop 4:");
 						help:
 						for (int period = 1; period <= maxPeriod; period++) {
@@ -253,12 +245,7 @@ public class patternCatcher {
 											Parcel.trace("Shape Created!");
 											
 											
-											for(int y = y1; y <= y2; y++){
-												deadZoneYIn.add(y);
-												deadZoneXIn.add(x1);
-												deadZoneXOut.add(x2);
-											}
-									//		Parcel.trace("hi");
+										
 											break help;
 										}
 
