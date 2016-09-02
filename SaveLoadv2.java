@@ -125,4 +125,9 @@ public class SaveLoadv2 {
 		}
 		return f;
 	}
+
+	public Tree loadTree(File file) {
+		
+		return null;
+	}
 }

@@ -1,25 +1,48 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Shape {
-	private String name;
+	
 	private ArrayList<Integer> xDeviation;
 	private ArrayList<Integer> yDeviation;
 	private ArrayList<Integer> aoexDeviation = new ArrayList<Integer>();
 	private ArrayList<Integer> aoeyDeviation = new ArrayList<Integer>();
 	private int[][] map;
 	private int[][] aoe;
-	private int type;
-	private Tree tree;
-	public Shape(String name, ArrayList<Integer> xDeviation,
+		private Tree tree;
+		private int type;
+	public Shape(ArrayList<Integer> xDeviation,
 			ArrayList<Integer> yDeviation, int[][] aoe) {
 		super();
-		this.name = name;
+		
 		this.xDeviation = xDeviation;
 		this.yDeviation = yDeviation;
 		this.aoe = aoe;
 		buildBitMap();
 
+	}
+	
+	public Shape(ArrayList<int[][]> map,ArrayList<int[][]> aoe, Tree tree){
+		this.tree = tree;
+		this.map = map.get(0);
+		this.aoe = aoe.get(0);
+		for(int i = 0; i < this.map.length; i++){
+			for(int j = 0 ; j < this.map[0].length;j++){
+				if(this.map[i][j] ==1){
+					xDeviation.add(i);
+					yDeviation.add(j);
+				}
+			}
+		}
+		for(int i = 0; i < this.aoe.length; i++){
+			for(int j = 0 ; j < this.aoe[0].length;j++){
+				if(this.map[i][j] ==1){
+					aoexDeviation.add(i);
+					aoeyDeviation.add(j);
+				}
+			}
+		}
 	}
 	public Shape(ArrayList<Integer> xDeviation,
 			ArrayList<Integer> yDeviation){
@@ -30,7 +53,11 @@ public class Shape {
 		buildAoe();
 		
 	}
+	
 
+	public Shape() {
+		// TODO Auto-generated constructor stub
+	}
 	public int[][] buildBitMap() {
 		int maxX = 0;
 		for (int a : xDeviation) {
@@ -131,14 +158,6 @@ public class Shape {
 		}
 
 		return true;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public ArrayList<Integer> getxDeviation() {

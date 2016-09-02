@@ -382,40 +382,37 @@ public class Spock {
 
 		for (int i = 0; i < toSearch.length; i++) {
 			for (int j = 0; j < toSearch[i].length; j++) {
-				//Parcel.trace(i + " " + j);
+				// Parcel.trace(i + " " + j);
 				if (i == 0 || i == toSearch.length - 1) {
 
 					if (toSearch[i][j] == 1) {
-						
+
 						return false;
 					}
 				} else if (j == 0 || j == toSearch[i].length - 1) {
 
 					if (toSearch[i][j] == 1) {
-												return false;
+						return false;
 					}
 				} else {
-					
 
-							if (searchFor[i-1][j-1] != toSearch[i][j]) {
-								// Parcel.trace(searchFor[k][l]);
-							
-								return false;
-							
+					if (searchFor[i - 1][j - 1] != toSearch[i][j]) {
+						// Parcel.trace(searchFor[k][l]);
 
-						
+						return false;
+
 					}
 				}
 
 			}
 		}
-		
 
 		return true;
 	}
 
 	public static ArrayList<Node> getUnderlings(int[][] map, int depth,
 			int maxDepth) {
+		Parcel.trace("New Call" + depth);
 		int[][] blank = new int[map.length + 2][map[0].length + 2];
 		ArrayList<Node> underlings = new ArrayList<Node>();
 		int square = blank.length * blank[0].length;
@@ -428,8 +425,9 @@ public class Spock {
 		String string;
 
 		int percent = 0;
+		Parcel.trace(max);
+		for (int i = 0; i < max; i++) {
 
-		for (int i = 0; i < (max); i++) {
 			blank = new int[map.length + 2][map[0].length + 2];
 			string = (String.format("%" + (square) + "s",
 					Integer.toBinaryString(i)).replace(" ", "0"));
@@ -451,7 +449,7 @@ public class Spock {
 					next.loadUnderlings(getUnderlings(blank, depth + 1,
 							maxDepth));
 				}
-				Parcel.trace(i);
+				// Parcel.trace(i);
 				underlings.add(next);
 			}
 
@@ -460,6 +458,50 @@ public class Spock {
 		return underlings;
 	}
 
+	public static Tree extendTree(Tree tree){
+		ArrayList<Node> workingSet = tree.root.getLowest();
+		
+		
+		int blankX = workingSet.get(0).map.length+2;
+		int blankY = workingSet.get(0).map[0].length+2;
+		int[][] blank = new int[blankX][blankY];
+		
+		int square = blankX * blankY;
+		int max = 0;
+		for (int i = 0; i < square; i++) {
+			max += Math.pow(2, i);
+		}
+		
+		String string;
+		Parcel.trace(max);
+		for (int i = 0; i < max; i++) {
+			blank = new int[blankX][blankY];
+			string = (String.format("%" + (square) + "s",
+					Integer.toBinaryString(i)).replace(" ", "0"));
+
+			int count = -1;
+
+			for (int l = 0; l < blank.length; l++) {
+				for (int k = 0; k < blank[l].length; k++) {
+					count++;
+					blank[l][k] = (int) string.charAt(count) - 48;
+				}
+
+			}
+			int[][] nextStep = returnNextStep(blank);
+		for(int l = 0; l < workingSet.size(); l++){
+			if (thisAndOnly(nextStep, workingSet.get(l).map)) {
+				workingSet.get(l).underlings.add(new Node(blank));
+			}
+		}
+		
+		
+		
+		
+		}
+		return tree;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static int[][] returnNextStep(int[][] map) {
 		int counter = -1;
@@ -506,4 +548,71 @@ public class Spock {
 
 		return blank;
 	}
+
+	public ArrayList<ArrayList<Node>> returnChildren(ArrayList<Node> root,
+			int maxDepth, int depth) {
+		ArrayList<Node> children = new ArrayList<Node>();
+
+		int blankX = root.get(0).map.length;
+		int blankY = root.get(0).map[0].length;
+		int[][] blank = new int[blankX][blankY];
+
+		ArrayList<ArrayList<Node>> wow = new ArrayList<ArrayList<Node>>();
+
+		int square = blank.length * blank[0].length;
+		int max = 0;
+		for (int i = 0; i < square; i++) {
+			max += Math.pow(2, i);
+		}
+
+		String string;
+
+		int percent = 0;
+		Parcel.trace(max);
+		for (int i = 0; i < max; i++) {
+			blank = new int[blankX][blankY];
+			string = (String.format("%" + (square) + "s",
+					Integer.toBinaryString(i)).replace(" ", "0"));
+
+			int count = -1;
+
+			for (int l = 0; l < blank.length; l++) {
+				for (int k = 0; k < blank[l].length; k++) {
+					count++;
+					blank[l][k] = (int) string.charAt(count) - 48;
+				}
+
+			}
+			int[][] nextStep = returnNextStep(blank);
+			Node toAdd;
+			for (int j = 0; j < root.size(); j++) {
+
+				if (thisAndOnly(nextStep, root.get(j).map)) {
+
+					wow.get(j).add(new Node(blank));
+
+				}
+
+			}
+
+		}
+		ArrayList<Node> passIn = new ArrayList<Node>();
+		for(int i = 0; i < wow.size(); i++){
+			for(int j = 0; j < wow.get(i).size(); j++){
+				passIn.add(wow.get(i).get(j));
+			}
+		}
+		
+		if (depth + 1 <= maxDepth) {
+			ArrayList<ArrayList<Node>> againWow = returnChildren(passIn, maxDepth, depth +1);
+			for(int i = 0; i < wow.size(); i++){
+				for(int j = 0; j < againWow.get(i).size(); j++){
+					
+				}
+			}
+		}
+
+		return null;
+	}
+
 }
