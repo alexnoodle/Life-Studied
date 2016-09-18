@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Builder extends LoadSave {
 	private String path;
 	private ArrayList<int[][]> map;
-	//private ArrayList<Shape> shapes;
+	private ArrayList<Shape> shapes;
 
 	public Builder() {
 		 
@@ -15,11 +15,11 @@ public class Builder extends LoadSave {
 		map = load(a);
 	}
 
-	public Builder(String path, ArrayList<int[][]> map) {
+	public Builder(String path, ArrayList<int[][]> map, ArrayList<Shape> shapes) {
 		super();
 		this.path = path;
 		this.map = map;
-		//this.shapes = shapes;
+		this.shapes = shapes;
 	}
 
 	public void load() {
@@ -45,7 +45,7 @@ public class Builder extends LoadSave {
 		return map.get(0);
 	}
 
-	public void launchBuilder(ArrayList<Shape> shapes) {
+	public void launchBuilder(Shape[] shapes) {
 		Scanner scanner1 = new Scanner(System.in);
 		System.out.println("New map or Current map?: n/m");
 		String response = scanner1.next();
@@ -78,14 +78,14 @@ public class Builder extends LoadSave {
 				setPoint(x, y, Integer.parseInt(response));
 			} else {
 				String out = "";
-				for (int i = 0; i < shapes.size(); i++) {
+				for (int i = 0; i < shapes.length; i++) {
 					out += i;
-					out += " " + shapes.get(i).getName() + " ";
+					out += " " + shapes[i].getName() + " ";
 				}
 				System.out.println("Shape ID: #");
 
 				response = scanner1.next();
-				setShape(x, y, Integer.parseInt(response), 1, shapes);
+				setShape(x, y, Integer.parseInt(response), 1);
 			}
 		}
 		
@@ -96,10 +96,10 @@ public class Builder extends LoadSave {
 		map.get(0)[x][y] = toggle;
 	}
 
-	public void setShape(int x, int y, int shape, int toggle, ArrayList<Shape> shapes) {
+	public void setShape(int x, int y, int shape, int toggle) {
 
 		for (int i = 0; i < shapes.get(shape).getxDeviation().size(); i++) {
-			map.get(0)[x + shapes.get(shape).getxDeviation().get(i)][y + shapes
+			map.get(0)[shapes.get(shape).getxDeviation().get(i)][shapes
 					.get(shape).getyDeviation().get(i)] = toggle;
 		}
 
@@ -121,12 +121,12 @@ public class Builder extends LoadSave {
 		this.map = map;
 	}
 
-	/*public ArrayList<Shape> getShapes() {
+	public ArrayList<Shape> getShapes() {
 		return shapes;
 	}
 
 	public void setShapes(ArrayList<Shape> shapes) {
 		this.shapes = shapes;
 	}
-*/
+
 }

@@ -24,7 +24,6 @@ public class Simulator {
 		ArrayList<int[][]> a = new ArrayList<int[][]>();
 		rootMap = map;
 		a.add(map);
-		//this.run();
 	}
 
 	public Simulator() {
@@ -35,7 +34,9 @@ public class Simulator {
 		rootMap[8][11] = 1;
 		rootMap[9][8] = 1;
 		rootMap[9][9] = 1;
-			}
+		rootMap[9][10] = 1;
+		rootMap[9][11] = 1;
+	}
 
 	public ArrayList<int[][]> run() {
 
@@ -46,6 +47,7 @@ public class Simulator {
 		while (numChanges != 0) {
 			// if(counter > 1000)break;
 			numChanges = 0;
+			
 			blank = new int[rootMap.length][rootMap[0].length];
 			for (int i = 0; i < rootMap.length; i++) {
 				for (int j = 0; j < rootMap[i].length; j++) {
@@ -70,7 +72,7 @@ public class Simulator {
 							|| getAdjacent(mapProgress.get(counter - 1),
 									new CoordPair(i, j)).length == 3) {
 						stack.push(new Order(new CoordPair(i, j), 1));
-						//System.out.println("dang");
+						//Parcel.trace("dang");
 						numChanges++;
 					}
 
@@ -92,14 +94,15 @@ public class Simulator {
 			}
 
 			
-		//	System.out.println("1");
+		//	Parcel.trace("1");
 			// Checks for a perfect loop from initial conditions
 			if (mapProgress.size() > 1) {
-				//System.out.println("2");
+		//		Parcel.trace("2");
 				if (isSame(0, mapProgress.size() - 1)) {
-				//	System.out.println("3");
-				/*	System.out.println("Ini: Period: "
+				//	Parcel.trace("3");
+				/*	Parcel.trace("Ini: Period: "
 							+ (mapProgress.size() - 1));*/
+					Parcel.value = mapProgress.size()-1;
 					return mapProgress;
 				}
 
@@ -107,7 +110,7 @@ public class Simulator {
 				if (mapProgress.size() > 2) {
 
 					if (isSame(mapProgress.size() - 1, mapProgress.size() - 2)) {
-						/*System.out.println("stagnant: Period: "
+						/*Parcel.trace("stagnant: Period: "
 								+ (mapProgress.size() - 1));*/
 					//	Parcel.value = mapProgress.size() - 1;
 						return mapProgress;
@@ -119,7 +122,7 @@ public class Simulator {
 					for (int i = mapProgress.size() - 1; i > 0; i--) {
 						for (int j = i - 1; j > 0; j--) {
 							if (isSame(i, j)) {
-						/*		System.out.println("Ini: Formed Period: "
+						/*		Parcel.trace("Ini: Formed Period: "
 										+ (i - j));*/
 								//Parcel.value = - 1;
 								return mapProgress;

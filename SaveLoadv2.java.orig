@@ -21,7 +21,10 @@ public class SaveLoadv2 {
 				dim = Integer.parseInt(verify);
 			}
 			verify = br.readLine();
+<<<<<<< HEAD
+=======
 			int dim2 = 0;
+>>>>>>> 5b7f5eb830af6553a1947ca8503c32484e43e9ea
 			if(verify != null && !(verify.equals("-1"))){
 				dim2 = Integer.parseInt(verify);
 			}
