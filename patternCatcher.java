@@ -34,9 +34,9 @@ public class patternCatcher {
 		ArrayList<Integer> deadZoneXOut = new ArrayList<Integer>();
 		ArrayList<Shape> shapes = new ArrayList<Shape>();
 		int dim = oMap.get(0).length;
-		for (int x1 = 8; x1 < dim; x1++) {
+		for (int x1 = 0; x1 < dim; x1++) {
 			// System.out.println("Loop 1:");
-			 for (int y1 = 8; y1 < dim; y1++) {
+			 for (int y1 = 0; y1 < dim; y1++) {
 				
 				// System.out.println("Loop 2:");
 				 here:for (int x2 = x1 + 1; x2 < dim; x2++) {

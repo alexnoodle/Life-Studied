@@ -97,7 +97,7 @@ public class Shape {
 
 		
 		for(int i = 0; i < aoexDeviation.size(); i++){
-			aoe[aoexDeviation.get(i)+4999][aoeyDeviation.get(i)+4999] = 3;
+			aoe[aoexDeviation.get(i)+4999][aoeyDeviation.get(i)+4999] = 1;
 		}
 		for(int i = 0; i < xDeviation.size(); i++){
 			aoe[xDeviation.get(i)][ yDeviation.get(i)] = 1;

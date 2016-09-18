@@ -26,6 +26,7 @@ final public class Tester {
 			UnsupportedEncodingException {
 		log = a;
 		dim = log.get(0).length;
+		dim2 = log.get(0)[0].length;
 		this.go();
 	}
 

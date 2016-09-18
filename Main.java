@@ -6,7 +6,37 @@ import java.util.ArrayList;
 
 public class Main {
 	public static void main(String[] args) {
+		/*
+		ArrayList<Integer> a = new ArrayList<Integer>();
+		ArrayList<Integer> b = new ArrayList<Integer>();
+		a.add(0);
+		a.add(0);
+		a.add(0);
+		b.add(0);
+		b.add(1);
+		b.add(2);
+		ArrayList<int[][]> d = new ArrayList<int[][]>();
+		Shape c = new Shape(a,b);
+		d.add(c.getAoe());
+		try{
+			new Tester(d);
+		}
+		catch(Exception e){
+			System.out.println("aww");
+		}
+		*/
 		
+		File file = new File("C:\\Users\\Alex\\Desktop\\Life Studied\\LifeStudied\\SavedRun.txt");
+		SaveLoadv2 a = new SaveLoadv2();
+		try{
+			Tester b = new Tester(a.load(file));
+		}
+		catch(Exception e){
+			System.out.println("nope");
+		}
+		System.out.println("Done");
+	}
+	public static void look(String filePath){
 		
 		SaveLoadv2 a = new SaveLoadv2();
 		File f = new File(filePath);

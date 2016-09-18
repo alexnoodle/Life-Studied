@@ -20,10 +20,15 @@ public class SaveLoadv2 {
 			BufferedReader br = new BufferedReader(fr);
 			verify = br.readLine();
 			int dim = 0;
+			int dim2 = 0;
 			if(verify != null && !(verify.equals("-1"))){
 				dim = Integer.parseInt(verify);
 			}
-			int[][] blank = new int[dim][dim];
+			verify = br.readLine();
+			if(verify != null && !(verify.equals("-1"))){
+				dim2 = Integer.parseInt(verify);
+			}
+			int[][] blank = new int[dim][dim2];
 			while ((verify = br.readLine()) != null) {
 				if (verify != null) {
 					if(!(verify.equals("-1"))){
@@ -40,7 +45,7 @@ public class SaveLoadv2 {
 					}
 					else{
 							map.add(blank);
-							blank = new int[dim][dim];
+							blank = new int[dim][dim2];
 						
 					}
 					
@@ -87,7 +92,7 @@ public class SaveLoadv2 {
 				bw.newLine();
 				}
 
-			}
+			
 			bw.flush();
 			bw.close();
 		} catch (IOException e) {
